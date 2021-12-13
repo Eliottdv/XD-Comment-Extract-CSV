@@ -4,6 +4,8 @@ userName = "",
 annotation = " ",
 comment = "",
 changed = 0,
+timestamp = "",
+artboardName = "",
 pageName = document.title;
 
 function comma4dash(commaStr) {
@@ -15,8 +17,12 @@ var elements = document.querySelectorAll('#ccx-comments-list li');
 Array.prototype.forEach.call(elements, function(el, i){
   if (el.classList.contains("global-section-header")) {
     sectionName = el.querySelectorAll(".title.truncated")[0].textContent;
-    csvArray.push(pageName + "," + sectionName + ", - , - ,-" + "\n");
+    csvArray.push(pageName + "," + sectionName + ", - , - ,-" + artboardName + "," + "\n");
     return;
+  }
+  if (el.querySelectorAll(".timestamp").length>0) {
+    timestamp = el.querySelectorAll(".timestamp")[0].textContent;
+    changed = 1;
   }
   if (el.querySelectorAll(".user-name").length>0) {
     userName = el.querySelectorAll(".user-name")[0].childNodes[0].textContent;
@@ -32,7 +38,7 @@ Array.prototype.forEach.call(elements, function(el, i){
     changed = 1;
   } else (annotation = " ");
 
-  changed?(csvArray.push(pageName + "," + comma4dash(sectionName) + "," + comma4dash(userName) + ",\"" + comma4dash(comment) + "\"," + annotation + "\n"), changed=0):'';
+  changed?(csvArray.push(pageName + "," + comma4dash(sectionName) + "," + comma4dash(artboardName) + comma4dash(timestamp) + "," + comma4dash(userName) + ",\"" + comma4dash(comment) + "\"," + annotation + "\n"), changed=0):'';
 
 });
 
