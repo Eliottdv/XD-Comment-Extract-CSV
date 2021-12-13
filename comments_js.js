@@ -1,12 +1,12 @@
 var csvArray = [],
-sectionName = "",
-userName = "",
-annotation = " ",
-comment = "",
-changed = 0,
-timestamp = "",
-artboardName = "",
-pageName = document.title;
+    sectionName = "",
+    userName = "",
+    annotation = " ",
+    comment = "",
+    changed = 0,
+    timestamp = "",
+    artboardName = "",
+    pageName = document.title;
 
 function comma4dash(commaStr) {
   return commaStr.replace(/,/g, '-'); //will replace commas for a dash
@@ -19,6 +19,9 @@ Array.prototype.forEach.call(elements, function(el, i){
     sectionName = el.querySelectorAll(".title.truncated")[0].textContent;
     csvArray.push(pageName + "," + sectionName + ", - , - ,-" + artboardName + "," + "\n");
     return;
+  }
+  if (document.querySelectorAll("div[data-stringtype='artboardName']").length>0) {
+    sectionName = document.querySelectorAll("div[data-stringtype='artboardName']")[0].innerText;
   }
   if (el.querySelectorAll(".timestamp").length>0) {
     timestamp = el.querySelectorAll(".timestamp")[0].textContent;
